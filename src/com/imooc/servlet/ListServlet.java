@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.imooc.bean.Message;
 import com.imooc.dao.MessageDao;
-import com.imooc.service.ListService;
+import com.imooc.service.QueryService;
 
 /**
  * 列表页面初始化控制
@@ -36,7 +36,7 @@ public class ListServlet extends HttpServlet {
 		request.setAttribute("command", command);
 		request.setAttribute("description", description);
 		//调用业务层，获得查询结果列表
-		List<Message> messageList = new ListService().queryMessageList(command, description);
+		List<Message> messageList = new QueryService().queryMessageList(command, description);
 		//保存并转发到jsp页面
 		request.setAttribute("messageList", messageList);
 		request.getRequestDispatcher("/WEB-INF/jsp/back/list.jsp").forward(request, response);

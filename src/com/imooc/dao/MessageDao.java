@@ -47,7 +47,67 @@ public class MessageDao {
 		}
 		return messageList;
 	}
+	/**
+	 * 删除单条信息
+	 */
+	public static void deleteOne(int id) {
+		DBAccess dBAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dBAccess.getSqlSession();
+			//通过SqlSession执行SQL语句
+			sqlSession.delete("deleteOne", id);
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+	}
 	
+	/**
+	 * 删除多条信息
+	 */
+	public static void deleteBatch(List<Integer> id) {
+		DBAccess dBAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dBAccess.getSqlSession();
+			//通过SqlSession执行SQL语句
+			sqlSession.delete("deleteBatch", id);
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+	}
+	/**
+	 * 添加一条信息
+	 */
+	public static void addOne(Message message) {
+		DBAccess dBAccess = new DBAccess();
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = dBAccess.getSqlSession();
+			//通过SqlSession执行SQL语句
+			sqlSession.insert("addOne",message);
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if(sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+	}
 	
 //	public static List<Message> queryMessageList(String command, String description) {
 //		List<Message> messageList = new ArrayList<>();

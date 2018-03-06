@@ -38,6 +38,29 @@
     		and description like '%' #{description} '%'
     	</if>
   </select>
+  
+  <!-- 删除单条信息 -->
+  <delete id="deleteOne">
+  	delete from message where id=#{_parameter}
+  </delete>
+  <!-- 删除多条信息 -->
+  <delete id="deleteBatch" parameterType="java.util.List">
+  	delete from message where id in (
+  	<foreach collection="list" item="item" separator=",">
+  		#{item}
+  	</foreach>
+  	)
+  </delete>
+  
+  <!-- 新增一条信息 -->
+  <insert id="addOne" parameterType="com.imooc.bean.Message">
+  	insert into message (command,description,content) 
+  	values (#{command},#{description},#{content})
+  </insert>
+
+
+
+
 <!-- 
   <select id="version" parameterType="long" resultType="int">
     SELECT version FROM user WHERE id = #{id,jdbcType=INTEGER}

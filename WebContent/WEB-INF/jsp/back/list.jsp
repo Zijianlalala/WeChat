@@ -2,19 +2,26 @@
 <%@ taglib prefix="c" 
            uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible"content="IE=9; IE=8; IE=7; IE=EDGE" />
 		<title>Content List</title>
-		<link href="${pageContext.request.contextPath}/resources/css/all.css" rel="stylesheet" type="text/css" />
+		<link href="<%=basePath %>resources/css/all.css" rel="stylesheet" type="text/css" />
+		<script src="${pageContext.request.contextPath}/resources/js/common/jquery-1.8.0.min.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/back/list.js"></script>
+	
 	</head>
 	<body style="background: #e1e9eb;">
 		<form action="List.action" id="mainForm" method="post">
 			<div class="right">
 				<div class="current">Current position:<a href="javascript:void(0)" style="color:#6E6E6E;">Content Management</a> &gt; Content List</div>
 				<div class="rightCont">
-					<p class="g_title fix">Content List <a class="btn03" href="#">Add new item</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn03" href="#">Delete an item</a></p>
+					<p class="g_title fix">Content List <a class="btn03" href="ToAddJspServlet.action">Add new item</a>&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn03" href="javascript:deleteBatch();">Delete an item</a></p>
 					<table class="tab1">
 						<tbody>
 							<tr>
@@ -34,7 +41,7 @@
 						<table class="tab2" width="100%">
 						<tbody>
 							<tr>
-								<th><input type="checkbox" id="all" onclick="#" /></th>
+								<th><input type="checkbox" id="all" onclick="" /></th>
 								<th>Number</th>
 								<th>Command</th>
 								<th>Description</th>
@@ -44,11 +51,12 @@
 								varStatus="status">
 								<tr
 									<c:if test="${status.index % 2 != 0}">style="background-color:#ECF6EE;"</c:if>>
-									<td><input type="checkbox" /></td>
+									<td><input type="checkbox" name="id" value="${message.id}"/></td>
 									<td>${status.index + 1}</td>
 									<td>${message.command }</td>
 									<td>${message.description }</td>
-									<td><a href="#">update</a>&nbsp;&nbsp;&nbsp; <a href="#">delete</a>
+									<td><button onclick="myFunction('Bill Gates','CEO')">update</button>&nbsp;&nbsp;&nbsp; 
+									<button onclick="deleteOne(${message.id})">delete</button>
 									</td>
 								</tr>
 							</c:forEach>
