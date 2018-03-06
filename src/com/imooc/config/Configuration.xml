@@ -29,6 +29,8 @@
   
   <mappers>
     <mapper resource="com/imooc/config/sql/Message.xml"/>
+    <mapper resource="com/imooc/config/sql/Command.xml"/>
+    <mapper resource="com/imooc/config/sql/CommandContext.xml"/>
   </mappers>
  
 </configuration>
